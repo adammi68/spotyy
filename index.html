@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Spotyy - Lecteur MP3/MP4</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#26619c">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="theme-toggle" onclick="toggleTheme()">🌓</div>
+  <header>Spotyy</header>
+
+  <main class="container">
+    <section class="uploader">
+      <label class="file-label">
+        <input id="fileInput" type="file" accept="audio/*,video/*" multiple>
+        <span id="fileLabelText">Choisir des fichiers audio/vidéo</span>
+      </label>
+
+      <input id="mediaName" type="text" placeholder="Titre (optionnel)" />
+      <button id="addBtn">Ajouter au lecteur</button>
+
+      <div class="install-hint" id="installHint" style="display:none;">
+        <button id="installBtn" class="install-btn">📱 Installer Spotyy</button>
+      </div>
+
+      <input id="searchInput" type="text" placeholder="Rechercher..." oninput="filterMedia()" />
+    </section>
+
+    <section id="gallery" class="gallery" aria-live="polite"></section>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    // register service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(e => console.warn('SW failed', e));
+    }
+  </script>
+</body>
+</html>
